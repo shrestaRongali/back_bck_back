@@ -8,23 +8,11 @@ import { BaseApp } from "./lib/app/baseApp";
 import { NotFoundError } from "@AppErrors/not-found-error";
 import { errorHandler } from "@AppMiddleWares/error-handler";
 
-const rateLimit = require('express-rate-limit');
-
 /**
  * Create an instance of an Express application.
  * @type {Express}
  */
 const appObj: Express = express();
-
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    max: 100, // Limit each IP to 100 requests per windowMs
-    message: 'Too many requests, please try again later.',
-    headers: true, // Send rate limit info in the `RateLimit-*` headers
-  });
-
-// Apply the rate limiting middleware to all requests
-appObj.use(limiter)
 
 // Enable Cross-Origin Resource Sharing (CORS) middleware.
 appObj.use(cors({
@@ -33,9 +21,6 @@ appObj.use(cors({
 
 // Parse incoming JSON requests with a size limit of 50MB.
 appObj.use(express.json({ limit: "500mb" }));
-
-// Parse incoming URL-encoded requests with a size limit of 50MB, extended mode, and parameter limit.
-appObj.use(express.urlencoded({ limit: "500mb", extended: true, parameterLimit: 50000 }));
 
 /**
  * Global variables to store the Express application instance, project folder path, and source directory path.
@@ -48,15 +33,8 @@ configDotenv()
 
 declare global {
     var EXPRS: BaseApp;
-    var projectFolderPath: string;
-    var rootSourceDirectoryPath: string;
 }
 
-// Resolve and store the project folder path.
-global.projectFolderPath = path.resolve();
-
-// Store the absolute path to the root source directory.
-global.rootSourceDirectoryPath = __dirname;
 console.log("Environment",process.env.NODE_ENV)
 
 // Create a new instance of the BaseApp class and initialize it.

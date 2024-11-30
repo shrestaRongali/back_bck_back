@@ -3,27 +3,24 @@ import { Model, Sequelize, BuildOptions, DataTypes } from 'sequelize';
 /**
  * Interface representing the attributes of the taskflow model.
  */
-export interface taskflowAttributes {
+export interface UserAttributes {
 	id?: number;
-	title: string;
-	description: string;
-	status: string;
+	name: string;
+	email: string;
+	password: string;
 	created_at: string;
-    // priority: string;
-    user_id: number;
-    // dueDate: string;
 }
 
 /**
  * Represents an instance of the taskFlow model.
  */
-export interface taskflowInstance extends Model<taskflowAttributes>, taskflowAttributes { }
+export interface UserInstance extends Model<UserAttributes>, UserAttributes { }
 
 /**
  * Represents the Taskflow model with associated static methods.
  */
-export type taskflowModel = typeof Model & {
-	new(values?: object, options?: BuildOptions): taskflowInstance;
+export type UserModel = typeof Model & {
+	new(values?: object, options?: BuildOptions): UserInstance;
 };
 
 /**
@@ -31,41 +28,26 @@ export type taskflowModel = typeof Model & {
  * @param sequelize - The Sequelize instance to associate with the model.
  * @returns The initialized TaskflowModel.
  */
-export function inittaskflowModel(sequelize: Sequelize): taskflowModel {
-	return <taskflowModel>sequelize.define<taskflowInstance>('taskflow', {
+export function initUserModel(sequelize: Sequelize): UserModel {
+	return <UserModel>sequelize.define<UserInstance>('user', {
 		id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
 		},
-		title: {
+		name: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		description: {
+		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		status: {
+		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
-            defaultValue: "pending"
 		},
-		// priority: {
-		// 	type: DataTypes.STRING,
-		// 	allowNull: false,
-        //     defaultValue: "low"
-		// },
-		// dueDate: {
-		// 	type: DataTypes.DATE,
-		// 	allowNull: false,
-		// 	defaultValue: DataTypes.NOW,
-		// },
-        user_id:{
-            type: DataTypes.INTEGER,
-			allowNull: false,
-        },
 		created_at: {
 			type: DataTypes.DATE,
 			allowNull: false,
@@ -74,7 +56,7 @@ export function inittaskflowModel(sequelize: Sequelize): taskflowModel {
 	},
 	{
         timestamps: false,
-        tableName: 'taskflow',
+        tableName: 'user',
         schema: 'public',
     });
 }

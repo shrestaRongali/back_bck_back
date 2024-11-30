@@ -12,7 +12,7 @@ type ResponseObj = {
  * Represents a base controller class for handling HTTP requests and responses in an Express.js application.
  */
 export class DefaultController {
-	private _request: Request;
+	private _request: any;
 	private _response: Response;
 	private _nextFunction: NextFunction;
 	private _statusCode: number = 200;
