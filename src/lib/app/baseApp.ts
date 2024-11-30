@@ -3,10 +3,12 @@ import { Sequelize } from "sequelize";
 import { DB } from "../app/helpers/db";
 import { appGlobalVariablesConfigLoader, GlobalVariablesInterface } from "@AppGlobals/variables";
 import { inittaskflowModel } from "@AppModels/app/taskflow";
+import { initUserModel } from "@AppModels/app/users";
 
 // Define your model modules
 const modelModules = [
 	{ initModel: inittaskflowModel },
+	{ initModel: initUserModel },
 ];
 /**
  * A collection of helper classes and objects for the application.
