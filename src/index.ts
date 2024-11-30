@@ -33,15 +33,8 @@ configDotenv()
 
 declare global {
     var EXPRS: BaseApp;
-    var projectFolderPath: string;
-    var rootSourceDirectoryPath: string;
 }
 
-// Resolve and store the project folder path.
-global.projectFolderPath = path.resolve();
-
-// Store the absolute path to the root source directory.
-global.rootSourceDirectoryPath = __dirname;
 console.log("Environment",process.env.NODE_ENV)
 
 // Create a new instance of the BaseApp class and initialize it.
